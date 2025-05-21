@@ -1,0 +1,22 @@
+&LISTA
+NDIM = 4
+NOV = 4
+INDV = 1  2  3  4
+SYNTHFILE(1) = '../f_aaint2024_lamost.dat'
+PFILE =      'run_lamost_martin_oldgrid_rv2.ipf'
+FFILE =      'run_lamost_martin_oldgrid_rv2.frd'
+WFILE =      'run_lamost_martin_oldgrid_rv2.wav'
+ERFILE =     'run_lamost_martin_oldgrid_rv2.err'
+FILTERFILE = 'run_lamost_martin_oldgrid_rv2.flr'
+SFFILE =     'run_lamost_martin_newgrid_rv2.obs'
+OPFILE =     'run_lamost_martin_newgrid_rv2.opf'
+OFFILE =     'run_lamost_martin_newgrid_rv2.mdl'
+LSF = 0
+ERRBAR = 1
+ALGOR = 3
+INTER = 3
+WINTER = 2
+CONT = 3
+NCONT = 30
+NTHREADS = 5
+/
