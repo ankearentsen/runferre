@@ -12,6 +12,8 @@ import sys
 
 c = 299792.458 # km/s
 
+ferrepath = '../src/a.out'
+
 ### Inspired by APS pipeline
 def mknml(outfol, ipf_file, frd_file, wav_file, err_file, flr_file, root, outroot, sf1, sf2=None, ngrid=1):
 
@@ -470,7 +472,7 @@ def runlam(data, specfol, outfol, run, gridfile, rviteration=False, rvfile=None,
     os.system('cp {}input.nml_{} input.nml'.format(outfol,run))
 
     ## Run ferre
-    os.system('../src/a.out')
+    os.system(ferrepath)
 
     ## Read FERRE results and write to csv file
     writef(run, outfol, vs='', newgrid=newgrid)

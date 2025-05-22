@@ -8,6 +8,8 @@ Files you need to run LAMFER:
 
 The code uses only standard packages (numpy, astropy, pandas, matplotlib), apart from pyraf if you want to do the optional step of correcting the radial velocities. In my experience this can be helpful for the LAMOST spectra. 
 
+You also need to have FERRE installed (https://github.com/callendeprieto/ferre). 
+
 **************
 
 An example pipeline is provided in the lamfer.py file. 
