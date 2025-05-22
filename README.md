@@ -10,5 +10,4 @@ The code uses only standard packages (numpy, astropy, pandas, matplotlib), apart
 
 **************
 
-
-
+An example pipeline is provided in the lamfer.py file. 
