@@ -460,3 +460,32 @@ def plotspec(starnames, run, outfol, vs='', newgrid=False):
 
         plt.show()
 
+
+def runlam(data, specfol, outfol, run, gridfile, rviteration=False, rvfile=None, newgrid=False):
+
+    ## Generate FERRE files
+    mkfls_lam(data, specfol, outfol, run, gridfile, rviteration, rvfile, newgrid)
+
+    ## copy run-specific file to input.nml (necessary to run FERRE)
+    os.system('cp {}input.nml_{} input.nml'.format(outfol,run))
+
+    ## Run ferre
+    os.system('../src/a.out')
+
+    ## Read FERRE results and write to csv file
+    writef(run, outfol, vs='', newgrid=newgrid)
+    
+    return None
+
+def dorv(run, outfol, outfolferre, rvfile0, vs='', newgrid=False):
+
+    ## Create fits files from FERRE results
+    tofits(run, outfol, outfolferre, vs, newgrid)
+
+    ## derive radial velocities with pyraf
+    rvpyraf(outfolferre)
+
+    ## write output csv file
+    getrvlist(outfolferre, rvfile0)
+    
+    return None
