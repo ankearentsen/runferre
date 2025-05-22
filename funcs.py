@@ -82,12 +82,6 @@ def mkfls_lam(data, specfol, outfol, run, gridfile, rviteration=False, rvfile=No
     rvfile: str
           path to a file with radial velocity corrections, with columns
           name, rv and rv_err
-    
-    Returns
-    -------
-    wavelength: numpy array
-       corresponding air wavelengths in AA (keeps vacuum for lambda<=2000. A)
-       
     '''
     
 
@@ -158,10 +152,8 @@ def mkfls_lam(data, specfol, outfol, run, gridfile, rviteration=False, rvfile=No
 
          if rviteration == True:
              v2 = -sub.rv.values[0]
-    #         print(v2)
              if np.abs(v2) < 200:
                 wl = wl*np.sqrt((1+v2/c)/(1-v2/c))
-    #            print('good rv')
 
 
          ## Limit wavelength range, make sure they're all the same length
@@ -214,6 +206,8 @@ def mkfls_lam(data, specfol, outfol, run, gridfile, rviteration=False, rvfile=No
     orms.to_csv('{}{}.flr'.format(outfol,run), header=None, index=None, sep=' ')
 
     print('Total number of stars in FERRE spec files: {}'.format(len(good)))
+    
+    ## For writing NML file:
     
     root = '{}'.format(run)
     ipf_file = '{}.ipf'.format(root)
@@ -301,41 +295,6 @@ def tofits(run, outfol, outfolferre, vs='', newgrid=False):
     
     return None
 
-
-def getrvlist(outfolferre, rvfile):
-
-    files = glob.glob('{}rvout_ferrespec/*3900-5500.txt'.format(outfolferre))
-    outrv = rvfile
-
-    list = pd.DataFrame()
-    bestlist = pd.DataFrame()
-
-    b=0
-    for file in files:
-        try:
-            data = pd.read_csv(file,sep='\s+', comment="#", header=None)
-        except:
-            print('ERROR')
-            b+=1
-            continue
-
-        name = data[0].iloc[0][:-15]
-        print(name)
-        data['name'] = name[5:]
-
-        bestlist = pd.concat([bestlist, data], ignore_index=True)
-
-    bestlist = bestlist.sort_values(by='name')
-
-    bestlist = bestlist[bestlist[10] != "INDEF"]
-
-    bestlist.to_csv(outrv,index=None, columns=['name',10,12], header=None)
-
-    print('made {} file'.format(outrv))
-    
-    return None
-
-
 def rvpyraf(outfolferre):
 
     from pyraf import iraf
@@ -389,6 +348,39 @@ def rvpyraf(outfolferre):
                 filtpars="",
                 keywpars=""
             )
+
+def getrvlist(outfolferre, rvfile):
+
+    files = glob.glob('{}rvout_ferrespec/*3900-5500.txt'.format(outfolferre))
+    outrv = rvfile
+
+    list = pd.DataFrame()
+    bestlist = pd.DataFrame()
+
+    b=0
+    for file in files:
+        try:
+            data = pd.read_csv(file,sep='\s+', comment="#", header=None)
+        except:
+            print('ERROR')
+            b+=1
+            continue
+
+        name = data[0].iloc[0][:-15]
+        print(name)
+        data['name'] = name[5:]
+
+        bestlist = pd.concat([bestlist, data], ignore_index=True)
+
+    bestlist = bestlist.sort_values(by='name')
+
+    bestlist = bestlist[bestlist[10] != "INDEF"]
+
+    bestlist.to_csv(outrv,index=None, columns=['name',10,12], header=None)
+
+    print('made {} file'.format(outrv))
+    
+    return None
 
 def plotspec(starnames, run, outfol, vs='', newgrid=False):
 
