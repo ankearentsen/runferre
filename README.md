@@ -10,6 +10,8 @@ The code uses only standard packages (numpy, astropy, pandas, matplotlib), apart
 
 You also need to have FERRE installed (https://github.com/callendeprieto/ferre). 
 
-**************
-
 An example pipeline is provided in the lamfer.py file. 
+
+# FERRE for PIGS
+
+To be added. 
