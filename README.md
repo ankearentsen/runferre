@@ -1,4 +1,4 @@
-# explore
+# FERRE for LAMOST
 
 Files you need to run LAMFER: 
 
