@@ -463,7 +463,7 @@ def plotspec(starnames, run, outfol, vs='', newgrid=False):
         plt.show()
 
 
-def runlam(data, specfol, outfol, run, gridfile, rviteration=False, rvfile=None, newgrid=False):
+def runlam(data, specfol, outfol, run, gridfile, vs='', rviteration=False, rvfile=None, newgrid=False):
 
     ## Generate FERRE files
     mkfls_lam(data, specfol, outfol, run, gridfile, rviteration, rvfile, newgrid)
@@ -475,7 +475,7 @@ def runlam(data, specfol, outfol, run, gridfile, rviteration=False, rvfile=None,
     os.system(ferrepath)
 
     ## Read FERRE results and write to csv file
-    writef(run, outfol, vs='', newgrid=newgrid)
+    writef(run, outfol, vs, newgrid=newgrid)
     
     return None
 
